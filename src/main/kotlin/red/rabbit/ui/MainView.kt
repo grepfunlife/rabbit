@@ -6,7 +6,7 @@ import com.vaadin.flow.router.Route
 import jakarta.annotation.security.PermitAll
 
 @Route("")
-@PageTitle("Habitus")
+@PageTitle("Rabbit")
 @PermitAll
 class MainView: KComposite() {
     private val root = ui {
