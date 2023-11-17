@@ -10,8 +10,6 @@ import eu.vaadinonkotlin.rest.gsonMapper
 import eu.vaadinonkotlin.vokdb.dataSource
 import io.javalin.Javalin
 import io.javalin.http.servlet.JavalinServlet
-import org.flywaydb.core.Flyway
-import org.slf4j.LoggerFactory
 import jakarta.servlet.ServletContextEvent
 import jakarta.servlet.ServletContextListener
 import jakarta.servlet.annotation.WebListener
@@ -19,7 +17,10 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.flywaydb.core.Flyway
 import org.postgresql.Driver
+import org.slf4j.LoggerFactory
+import red.rabbit.backend.api.habitRest
 
 /**
  * Called by the Servlet Container to bootstrap your app. We need to bootstrap the Vaadin-on-Kotlin framework,
@@ -27,7 +28,7 @@ import org.postgresql.Driver
  * After that's done, your app is ready to be serving client browsers.
  */
 @WebListener
-class Bootstrap: ServletContextListener {
+class Bootstrap : ServletContextListener {
     override fun contextInitialized(sce: ServletContextEvent?) {
         log.info("Starting up")
 
@@ -51,6 +52,8 @@ class Bootstrap: ServletContextListener {
         log.info("Running DB migrations")
         val flyway = Flyway.configure()
             .dataSource(VaadinOnKotlin.dataSource)
+            .locations("filesystem:db.migration")
+            .cleanDisabled(false)
             .load()
         flyway.migrate()
         log.info("Initialization complete")
@@ -75,8 +78,8 @@ class Bootstrap: ServletContextListener {
 @WebServlet(urlPatterns = ["/rest/*"], name = "JavalinRestServlet", asyncSupported = false)
 class JavalinRestServlet : HttpServlet() {
     val javalin: JavalinServlet = Javalin.createStandalone()
-            .configureRest()
-            .javalinServlet()
+        .configureRest()
+        .javalinServlet()
 
     override fun service(req: HttpServletRequest, resp: HttpServletResponse) {
         javalin.service(req, resp)
@@ -85,8 +88,9 @@ class JavalinRestServlet : HttpServlet() {
 
 fun Javalin.configureRest(): Javalin {
     gsonMapper(VokRest.gson)
+    habitRest()
     return this
 }
 
 @Viewport(Viewport.DEVICE_DIMENSIONS)
-class AppShell: AppShellConfigurator
+class AppShell : AppShellConfigurator

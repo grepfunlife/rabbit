@@ -5,7 +5,7 @@ import com.vaadin.flow.router.PageTitle
 import com.vaadin.flow.router.Route
 import jakarta.annotation.security.PermitAll
 
-@Route("")
+@Route("", layout = MainLayout::class)
 @PageTitle("Rabbit")
 @PermitAll
 class MainView: KComposite() {
@@ -14,10 +14,6 @@ class MainView: KComposite() {
             setSizeFull(); content { align(center, middle) }; isMargin = false; isSpacing = true
 
             h1("Improve your habits")
-//            image("images/chucknorris.jpg")
-//            div { html("<strong>Vaadin version: </strong> ${VaadinVersion.get}") }
-//            div { html("<strong>Kotlin version: </strong> ${KotlinVersion.CURRENT}") }
-//            div { html("<strong>JVM version: </strong> $jvmVersion") }
         }
     }
 }

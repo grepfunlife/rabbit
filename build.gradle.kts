@@ -36,7 +36,7 @@ dependencies {
 
     // db
     implementation("org.flywaydb:flyway-core:9.16.0")
-    implementation("com.h2database:h2:2.2.220")
+    implementation("org.flywaydb:flyway-database-postgresql:10.0.1")
     implementation("org.postgresql:postgresql:42.6.0")
 
     // REST
