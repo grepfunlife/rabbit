@@ -7,7 +7,9 @@ import com.vaadin.flow.router.HasUrlParameter
 import com.vaadin.flow.router.Route
 import red.rabbit.backend.Habit
 import com.github.mvysny.kaributools.navigateTo
+import com.github.mvysny.kaributools.setRoute
 import com.vaadin.flow.router.PageTitle
+import com.vaadin.flow.router.RouterLink
 
 
 @Route("habit", layout = MainLayout::class)
@@ -15,6 +17,7 @@ import com.vaadin.flow.router.PageTitle
 class HabitView: KComposite(), HasUrlParameter<Long> {
     private lateinit var name: Text
     private lateinit var type: Text
+    private lateinit var editLink: RouterLink
     private val root = ui {
         verticalLayout {
             div {
@@ -25,6 +28,7 @@ class HabitView: KComposite(), HasUrlParameter<Long> {
                 strong("Habit Type: ")
                 this@HabitView.type = text("")
             }
+            editLink = routerLink(null, "Edit")
             routerLink(null, "List of Habits", HabitsView::class)
         }
     }
@@ -33,6 +37,7 @@ class HabitView: KComposite(), HasUrlParameter<Long> {
         val habit = Habit.getById(habitId!!)
         name.text = habit.name
         type.text = habit.habitType.toString()
+        editLink.setRoute(EditHabitView::class, habitId)
     }
 
     companion object {
