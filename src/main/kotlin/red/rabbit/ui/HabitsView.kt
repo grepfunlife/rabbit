@@ -6,6 +6,7 @@ import com.github.vokorm.dataloader.dataLoader
 import com.vaadin.flow.router.AfterNavigationObserver
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.component.grid.Grid
+import com.vaadin.flow.data.renderer.NativeButtonRenderer
 import com.vaadin.flow.router.AfterNavigationEvent
 import red.rabbit.backend.Habit
 import eu.vaadinonkotlin.vaadin.vokdb.setDataLoader
@@ -25,6 +26,8 @@ class HabitsView : KComposite(), AfterNavigationObserver {
                 columnFor(Habit::id)
                 columnFor(Habit::name)
                 columnFor(Habit::habitType)
+                addColumn(NativeButtonRenderer<Habit>("Show", { HabitView.navigateTo(it.id!!) }))
+                addColumn(NativeButtonRenderer<Habit>("Edit", { EditHabitView.navigateTo(it.id!!) }))
             }
         }
     }
