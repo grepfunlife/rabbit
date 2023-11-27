@@ -8,42 +8,22 @@ import com.vaadin.flow.router.Route
 import red.rabbit.backend.Habit
 import red.rabbit.backend.HabitType
 import com.github.mvysny.kaributools.navigateTo
+import red.rabbit.backend.HabitEditor
+import red.rabbit.backend.habitEditor
 
 @Route("edit-habit", layout = MainLayout::class)
 @PageTitle("Edit Habit")
 class EditHabitView : KComposite(), HasUrlParameter<Long> {
-    private val binder = beanValidationBinder<Habit>()
-    private var habit: Habit? = null
+    private lateinit var editor: HabitEditor
     private val root = ui {
         verticalLayout {
             h1("Edit Habit")
-            textField("Name") {
-                bind(binder).bind(Habit::name)
-            }
-            comboBox<HabitType>("HabitType") {
-                setItems(*HabitType.entries.toTypedArray())
-                bind(binder).bind(Habit::habitType)
-            }
-            button("Save") {
-                onLeftClick {
-                    val habit = habit!!
-                    if (binder.validate().isOk && binder.writeBeanIfValid(habit)) {
-                        habit.save()
-                        HabitView.navigateTo(habit.id!!)
-                    }
-                }
-            }
-            routerLink(null, "List of Habits", HabitsView::class)
+            editor = habitEditor()
         }
     }
 
     override fun setParameter(event: BeforeEvent?, habitId: Long?) {
-        edit(Habit.getById(habitId!!))
-    }
-
-    private fun edit(habit: Habit) {
-        this.habit = habit
-        binder.readBean(habit)
+        editor.habit = Habit.getById(habitId!!)
     }
 
     companion object {

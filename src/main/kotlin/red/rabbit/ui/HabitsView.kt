@@ -3,13 +3,14 @@ package red.rabbit.ui
 import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.kaributools.refresh
 import com.github.vokorm.dataloader.dataLoader
-import com.vaadin.flow.router.AfterNavigationObserver
-import com.vaadin.flow.router.Route
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.data.renderer.NativeButtonRenderer
 import com.vaadin.flow.router.AfterNavigationEvent
-import red.rabbit.backend.Habit
+import com.vaadin.flow.router.AfterNavigationObserver
+import com.vaadin.flow.router.Route
 import eu.vaadinonkotlin.vaadin.vokdb.setDataLoader
+import red.rabbit.backend.Habit
+import red.rabbit.confirmDialog
 
 @Route("habits", layout = MainLayout::class)
 class HabitsView : KComposite(), AfterNavigationObserver {
@@ -28,6 +29,12 @@ class HabitsView : KComposite(), AfterNavigationObserver {
                 columnFor(Habit::habitType)
                 addColumn(NativeButtonRenderer<Habit>("Show", { HabitView.navigateTo(it.id!!) }))
                 addColumn(NativeButtonRenderer<Habit>("Edit", { EditHabitView.navigateTo(it.id!!) }))
+                addColumn(NativeButtonRenderer<Habit>("Delete") { habit ->
+                    confirmDialog {
+                        habit.delete()
+                        this@grid.refresh()
+                    }
+                })
             }
         }
     }
