@@ -39,8 +39,8 @@ class Bootstrap : ServletContextListener {
             driverClassName = Driver::class.java.name
 //            jdbcUrl = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
             jdbcUrl = "jdbc:postgresql://localhost:5432/rabbitDB"
-            username = "rabbit"
-            password = "rabbit"
+            username = System.getenv("postgresql_password")
+            password = System.getenv("postgresql_username")
         }
         VaadinOnKotlin.dataSource = HikariDataSource(cfg)
 
