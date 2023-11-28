@@ -4,7 +4,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import red.rabbit.backend.Action
 import red.rabbit.backend.Habit
 import red.rabbit.ui.ActionView
-import red.rabbit.ui.HabitView
 
 class ActionEditor : VerticalLayout() {
     private val binder = beanValidationBinder<Action>()
@@ -20,10 +19,11 @@ class ActionEditor : VerticalLayout() {
             bind(binder).bind(Action::date)
         }
 
-        comboBox<Long>("Habit") {
-            setItems(Habit.findAll().map { it.id })
+        comboBox<Habit>("Habit") {
+            setItems( Habit.findAll())
+//            setItems { Habit.findAll().map { it.id} }
             //TODO:
-            setItemLabelGenerator { Habit::name.toString() }
+            setItemLabelGenerator { it.name }
             bind(binder).bind(Action::habit_id)
         }
 

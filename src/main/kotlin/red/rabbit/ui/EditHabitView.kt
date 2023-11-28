@@ -6,7 +6,6 @@ import com.vaadin.flow.router.HasUrlParameter
 import com.vaadin.flow.router.PageTitle
 import com.vaadin.flow.router.Route
 import red.rabbit.backend.Habit
-import red.rabbit.backend.HabitType
 import com.github.mvysny.kaributools.navigateTo
 import red.rabbit.backend.HabitEditor
 import red.rabbit.backend.habitEditor

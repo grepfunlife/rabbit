@@ -1,4 +1,4 @@
-package red.rabbit.backend
+package red.rabbit.backend.enums
 
 enum class HabitType {
     GOOD,

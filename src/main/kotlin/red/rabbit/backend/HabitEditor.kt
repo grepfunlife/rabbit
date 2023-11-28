@@ -2,6 +2,7 @@ package red.rabbit.backend
 
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.HasComponents
+import red.rabbit.backend.enums.HabitType
 import red.rabbit.ui.HabitView
 import red.rabbit.ui.HabitsView
 

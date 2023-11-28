@@ -29,7 +29,7 @@ class ActionView: KComposite(), HasUrlParameter<Long> {
                 strong("Date: ")
                 this@ActionView.date = text("")
             }
-//            editLink = routerLink(null, "Edit")
+            editLink = routerLink(null, "Edit")
 //            routerLink(null, "List of Habits", HabitsView::class)
         }
     }
@@ -38,7 +38,7 @@ class ActionView: KComposite(), HasUrlParameter<Long> {
         val action = Action.getById(actionId!!)
         habitName.text =  Habit.getById(action.habit_id!!).name
         date.text = action.date.toString()
-//        editLink.setRoute(EditHabitView::class, actionId)
+        editLink.setRoute(EditActionView::class, actionId)
     }
 
     companion object {

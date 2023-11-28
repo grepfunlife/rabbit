@@ -16,5 +16,5 @@ data class Action(
 ) : KEntity<Long> {
     companion object : Dao<Action, Long>(Action::class.java)
 
-//    val habit: Habit? get() = if (habitId == null) null else Habit.findById(habitId!!)
+    val habit: Habit? get() = if (habit_id == null) null else Habit.findById(habit_id!!)
 }

@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route
 import red.rabbit.backend.Action
 
 @Route("create-action", layout = MainLayout::class)
-@PageTitle("Create Habit")
+@PageTitle("Create Action")
 class CreateActionView : KComposite() {
     private lateinit var editor: ActionEditor
     private val root = ui {

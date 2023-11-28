@@ -3,6 +3,7 @@ package red.rabbit.backend
 import com.github.vokorm.KEntity
 import com.gitlab.mvysny.jdbiorm.Dao
 import jakarta.validation.constraints.NotNull
+import red.rabbit.backend.enums.HabitType
 
 data class Habit(
     override var id: Long? = null,
