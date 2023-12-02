@@ -25,7 +25,7 @@ class HabitEditor: KComposite() {
                 bind(binder).bind(Habit::habitType)
             }
             button("Save") {
-                onLeftClick { event ->
+                onLeftClick { _ ->
                     val habit = habit!!
                     if(binder.validate().isOk && binder.writeBeanIfValid(habit)) {
                         habit.save()
