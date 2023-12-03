@@ -24,11 +24,11 @@ class ActionEditor : VerticalLayout() {
 //            setItems { Habit.findAll().map { it.id} }
             //TODO:
             setItemLabelGenerator { it.name }
-            bind(binder).bind(Action::habit_id)
+            bind(binder).bind(Action::habitId.name)
         }
 
         button("Save") {
-            onLeftClick { event ->
+            onLeftClick { _ ->
                 val action = action!!
                 if(binder.validate().isOk && binder.writeBeanIfValid(action)) {
                     action.save()

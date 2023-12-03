@@ -36,7 +36,7 @@ class ActionView: KComposite(), HasUrlParameter<Long> {
 
     override fun setParameter(event: BeforeEvent, actionId: Long?) {
         val action = Action.getById(actionId!!)
-        habitName.text =  Habit.getById(action.habit_id!!).name
+        habitName.text =  Habit.getById(action.habitId!!).name
         date.text = action.date.toString()
         editLink.setRoute(EditActionView::class, actionId)
     }
